@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ScrollPane layoutX="200.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <ListView prefHeight="200.0" prefWidth="200.0" />
+                        <Label layoutX="26.0" layoutY="14.0" text="Label">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="26.0" layoutY="39.0" text="Label">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="26.0" layoutY="64.0" text="Label">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="26.0" layoutY="89.0" text="Label">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Label>
+                        <Button layoutX="90.0" layoutY="18.0" mnemonicParsing="false" text="Button">
+                            <font>
+                                <Font size="8.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="90.0" layoutY="43.0" mnemonicParsing="false" text="Button">
+                            <font>
+                                <Font size="8.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="90.0" layoutY="68.0" mnemonicParsing="false" text="Button">
+                            <font>
+                                <Font size="8.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="90.0" layoutY="93.0" mnemonicParsing="false" text="Button">
+                            <font>
+                                <Font size="8.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+    </children>
+</Pane>
