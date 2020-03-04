@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class Controller {
 
@@ -26,7 +27,7 @@ public class Controller {
         dbH.initConection();
     }
 
-    public void checkLogin(ActionEvent event) throws IOException {
+    public void checkLogin(ActionEvent event) throws IOException, SQLException {
         String userNameInput = username_Input.getText();
         String passwordInput = password_Input.getText();
         int result = dbH.login(userNameInput, passwordInput);

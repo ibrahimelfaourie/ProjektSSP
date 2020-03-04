@@ -4,12 +4,10 @@ import java.sql.*;
 
 public class DbHandler {
 
-    Connection connection = null;
-    Statement processSqlStatement = null;
+    private Connection connection = null;
 
     public void initConection(){
 
-        // Statement processSqlStatement = null;
         try {
 
             Class.forName("org.postgresql.Driver");
@@ -23,10 +21,11 @@ public class DbHandler {
 
     }
 
-    public int login(String username, String password){
+    public int login(String username, String password) throws SQLException {
+        PreparedStatement stmt = null;
         try {
-            PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) AS total FROM \"users\"" +
-                    " where \"username\" = ? and \"password\" = ?;");
+            stmt = connection.prepareStatement("SELECT COUNT(*) AS total FROM \"users\"" +
+                    " where \"username\" = ? and \"password\" = ?; ");
             stmt.setString(1, username);
             stmt.setString(2, password);
 
@@ -39,10 +38,13 @@ public class DbHandler {
             return antal;
         } catch (Exception e){
             System.out.println(e.getMessage());
-            return 0;
+           // return 0;
 
         }
-
+        if(stmt!=null){
+            stmt.close();
+        }
+        return 0;
     }
 
     public void ShowFriends(int userId){
