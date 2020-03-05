@@ -11,7 +11,7 @@ public class DbHandler {
         try {
 
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/sspDB", "Ibbe", "123456");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/sspDB", "Admin", "123456");
 
             connection.setAutoCommit(false);
         }
@@ -26,6 +26,8 @@ public class DbHandler {
         try {
             stmt = connection.prepareStatement("SELECT COUNT(*) AS total FROM \"Users\"" +
                     " where \"Name\" = ? and \"Password\" = ?; ");
+
+
             stmt.setString(1, username);
             stmt.setString(2, password);
 
