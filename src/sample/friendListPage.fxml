@@ -4,13 +4,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="275.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <ScrollPane layoutX="57.0" layoutY="38.0" prefHeight="200.0" prefWidth="200.0">
+        <ScrollPane layoutX="50.0" layoutY="38.0" prefHeight="350.0" prefWidth="500.0">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="350.0" prefWidth="500.0">
                     <children>
-                        <ListView prefHeight="200.0" prefWidth="200.0" />
+                        <ListView layoutX="-1.0" prefHeight="338.0" prefWidth="493.0" />
                         <Label layoutX="26.0" layoutY="14.0" text="Label">
                             <font>
                                 <Font size="16.0" />
@@ -55,5 +55,10 @@
                 </AnchorPane>
             </content>
         </ScrollPane>
+      <Label fx:id="FriendlistTitle" layoutX="259.0" layoutY="11.0" text="FriendList">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
     </children>
 </Pane>

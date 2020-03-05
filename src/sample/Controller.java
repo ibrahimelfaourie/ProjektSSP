@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
@@ -22,6 +23,8 @@ public class Controller {
     PasswordField password_Input;
     @FXML
     javafx.scene.control.Button login_Button;
+    @FXML
+    Label failedloggin;
 
     public Controller() {
         dbH.initConection();
@@ -43,7 +46,7 @@ public class Controller {
 
 
         } else {
-            login_Button.setText("Fail");
+            failedloggin.setText("Fail to loggin, name or password incorrect!");
         }
 
     }

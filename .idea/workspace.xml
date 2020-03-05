@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Anslutning till databas. Inlog metod tilldatabasen. Switch scene vid inloggning till friendList sida.">
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt_SSP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Projekt_SSP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/DbHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/DbHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/friendListPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/friendListPage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/loginPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/loginPage.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,14 +60,6 @@
   <component name="FavoritesManager">
     <favorites_list name="JavaFxApplication" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-        <option value="FxmlFile" />
-      </list>
-    </option>
-  </component>
   <component name="FindManager">
     <FindUsagesManager>
       <setting name="OPEN_NEW_TAB" value="false" />
@@ -68,7 +67,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="MERGE" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectId" id="1YeryCB6RhOVt8CvYRLFw4MFta6" />
@@ -91,12 +90,12 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="C:/javafx/javafx-sdk-11.0.2/lib" />
-    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="last_opened_file_path" value="$PATH_TO_FX$" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="project.structure.side.proportion" value="0.4045977" />
     <property name="recentsLimit" value="5" />
-    <property name="settings.editor.selected.configurable" value="preferences.JavaFX" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.language" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="Applet" factoryName="Applet">
@@ -127,7 +126,7 @@
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="sample.Main" />
       <module name="Projekt_SSP" />
-      <option name="VM_PARAMETERS" value="--module-path &quot;C:\javafx\javafx-sdk-11.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml" />
+      <option name="VM_PARAMETERS" value="--module-path ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="sample.*" />
@@ -178,6 +177,18 @@
       </method>
     </configuration>
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -190,25 +201,6 @@
       <updated>1359379246138</updated>
       <workItem from="1359379250712" duration="1302000" />
     </task>
-    <task id="LOCAL−00001" summary="Anslutning till databas. Inlog metod tilldatabasen. Switch scene vid inloggning till friendList sida.">
-      <created>1583319020529</created>
-      <option name="number" value="LOCAL−00001" />
-      <option name="presentableId" value="LOCAL−00001" />
-      <updated>1583319020529</updated>
-    </task>
-    <task id="LOCAL−00002" summary="Anslutning till databas. Inlog metod tilldatabasen. Switch scene vid inloggning till friendList sida.">
-      <created>1583325394610</created>
-      <option name="number" value="LOCAL−00002" />
-      <option name="presentableId" value="LOCAL−00002" />
-      <updated>1583325394610</updated>
-    </task>
-    <task id="LOCAL−00003" summary="Anslutning till databas. Inlog metod tilldatabasen. Switch scene vid inloggning till friendList sida.">
-      <created>1583325631381</created>
-      <option name="number" value="LOCAL−00003" />
-      <option name="presentableId" value="LOCAL−00003" />
-      <updated>1583325631381</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -217,50 +209,47 @@
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
-    <MESSAGE value="Anslutning till databas. Inlog metod tilldatabasen. Switch scene vid inloggning till friend sida." />
-    <MESSAGE value="Anslutning till databas. Inlog metod tilldatabasen. Switch scene vid inloggning till friendList sida." />
-    <option name="LAST_COMMIT_MESSAGE" value="Anslutning till databas. Inlog metod tilldatabasen. Switch scene vid inloggning till friendList sida." />
   </component>
   <component name="WindowStateProjectService">
-    <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583330406797">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="253" y="55" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583330020045">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1583330406797" />
-    <state x="343" y="0" key="CommitChangelistDialog2" timestamp="1583325629855">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="253" y="55" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1583330020045" />
+    <state x="616" y="289" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1583327529618">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="343" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1583325629855" />
-    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1583315031443">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="616" y="289" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1536.824@0.0.1536.824" timestamp="1583327529618" />
+    <state x="528" y="105" key="FileChooserDialogImpl" timestamp="1583328218204">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1583315031443" />
-    <state width="1323" height="2" key="GridCell.Tab.0.bottom" timestamp="1583331700808">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="528" y="105" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1583328218204" />
+    <state width="1390" height="183" key="GridCell.Tab.0.bottom" timestamp="1583395014553">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1323" height="2" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1583331700808" />
-    <state width="1323" height="2" key="GridCell.Tab.0.center" timestamp="1583331700808">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1390" height="183" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583395014553" />
+    <state width="1390" height="183" key="GridCell.Tab.0.center" timestamp="1583395014553">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1323" height="2" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1583331700808" />
-    <state width="1323" height="2" key="GridCell.Tab.0.left" timestamp="1583331700808">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1390" height="183" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1583395014553" />
+    <state width="1390" height="183" key="GridCell.Tab.0.left" timestamp="1583395014553">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1323" height="2" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1583331700808" />
-    <state width="1323" height="2" key="GridCell.Tab.0.right" timestamp="1583331700808">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1390" height="183" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1583395014553" />
+    <state width="1390" height="183" key="GridCell.Tab.0.right" timestamp="1583395014553">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1323" height="2" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1583331700808" />
-    <state x="163" y="0" key="SettingsEditor" timestamp="1583328181595">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1390" height="183" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1583395014553" />
+    <state x="444" y="53" key="MultipleFileMergeDialog" timestamp="1583331887424">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="163" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583328181595" />
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1583325644343">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="444" y="53" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1583331887424" />
+    <state x="150" y="0" key="SettingsEditor" timestamp="1583392033588">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1583325644343" />
-    <state x="492" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583331692638">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="150" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1583392033588" />
+    <state x="576" y="305" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583331863663">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="492" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1583331692638" />
+    <state x="576" y="305" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1583331863663" />
   </component>
 </project>
