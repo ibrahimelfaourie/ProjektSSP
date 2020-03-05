@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Anslutning till databas. Inlog metod tilldatabasen. Switch scene vid inloggning till friendList sida.">
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Ändring på gitignorefilen">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/DbHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/DbHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,7 +209,13 @@
       <option name="presentableId" value="LOCAL−00003" />
       <updated>1583325631381</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL−00004" summary="Ändring på gitignorefilen">
+      <created>1583399404460</created>
+      <option name="number" value="LOCAL−00004" />
+      <option name="presentableId" value="LOCAL−00004" />
+      <updated>1583399404460</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -222,7 +226,8 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <MESSAGE value="Anslutning till databas. Inlog metod tilldatabasen. Switch scene vid inloggning till friend sida." />
     <MESSAGE value="Anslutning till databas. Inlog metod tilldatabasen. Switch scene vid inloggning till friendList sida." />
-    <option name="LAST_COMMIT_MESSAGE" value="Anslutning till databas. Inlog metod tilldatabasen. Switch scene vid inloggning till friendList sida." />
+    <MESSAGE value="Ändring på gitignorefilen" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ändring på gitignorefilen" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583398551474">
@@ -233,10 +238,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="531" y="253" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1366.728@0.0.1366.728" timestamp="1583395810576" />
-    <state x="343" y="0" key="CommitChangelistDialog2" timestamp="1583325629855">
+    <state x="343" y="0" key="CommitChangelistDialog2" timestamp="1583399403692">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="343" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1583325629855" />
+    <state x="343" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1583399403692" />
     <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1583399289207">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -273,14 +278,14 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="1323" height="223" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1583399309481" />
-    <state x="163" y="0" key="SettingsEditor" timestamp="1583399299842">
+    <state x="163" y="0" key="SettingsEditor" timestamp="1583399800511">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="163" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583399299842" />
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1583325644343">
+    <state x="163" y="0" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583399800511" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1583399407208">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1583325644343" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1583399407208" />
     <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1583398236932">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -289,31 +294,5 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="492" y="281" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1583331692638" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/sample/DbHandler.java</url>
-          <line>13</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/sample/DbHandler.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/sample/Controller.java</url>
-          <line>33</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/sample/DbHandler.java</url>
-          <line>12</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
