@@ -28,6 +28,12 @@ public class FriendListController {
     ListView friendList ;
     @FXML
     Button utmanaButton;
+    @FXML
+    ListView requests;
+    @FXML
+    Button tackaNej;
+    @FXML
+    Button tackaJa;
 
 
     public void setFriends(String[] newFriends){
@@ -53,6 +59,24 @@ public class FriendListController {
     }
     public void setUserId(int uId){
         userId = uId;
+        String[] requestedPlayer = dbh.findRequestsForPlayer(uId);
+        if (requestedPlayer.length>0){
+            setRequests(requestedPlayer);
+        }
 
+    }
+    public void setRequests(String[] requestsFromPlayer){
+
+        ObservableList<String> list = FXCollections.observableArrayList(requestsFromPlayer);
+        requests.setItems(list);
+        requests.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+    }
+
+    public void acceptChallenge(ActionEvent event){
+
+        String opponent = (String) friendList.getSelectionModel().getSelectedItem();
+        if (opponent!= null){
+
+        }
     }
 }

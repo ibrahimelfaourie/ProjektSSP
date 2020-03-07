@@ -108,11 +108,63 @@ public class DbHandler {
             stmt.setInt(3,0);
 
            int result = stmt.executeUpdate();
+           connection.commit();
 
 
 
         } catch (Exception e){}
     }
+
+    public String[]  findRequestsForPlayer(int playerId) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement("select \"Name\" from \"Users\" inner join \"Request\" on " +
+                    "\"Request\".\"Player1\" = \"Users\".\"UserID\" where \"Player2\" = ? and \"Acceptance\" = ?");
+            stmt.setInt(1, playerId);
+            stmt.setInt(2, 0);
+            String[] requestPlayer = getStringArray(stmt,"Name");
+            return requestPlayer;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    private String [] getStringArray(PreparedStatement stmt, String column){
+
+        try {
+
+
+
+            ResultSet validUser = stmt.executeQuery();
+            ArrayList<String> namelist = new ArrayList<String>();
+
+            while ((validUser.next())) {
+                String name = validUser.getString(column);
+                namelist.add(name);
+
+            }
+            String[] array = new String[namelist.size()];
+            array = namelist.toArray(array);
+            return array;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public void acceptGame(int player2, String challenger){
+        try {
+            int player1 = findUserId(challenger);
+
+        }catch (Exception e){
+
+        }
+    }
+    private void sendUpdate(PreparedStatement stmt){
+        try {
+            int result = stmt.executeUpdate();
+        }catch (Exception e){
+
+        }
+    }
+
 
 
 
