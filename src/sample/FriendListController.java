@@ -104,6 +104,12 @@ public class FriendListController {
 
         }
     }
+    public void setActiveGamesView(String[] requestsFromPlayer){
+
+        ObservableList<String> list = FXCollections.observableArrayList(requestsFromPlayer);
+        activeGamesView.setItems(list);
+        activeGamesView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+    }
 
     public void logout(ActionEvent event) {
         Stage stage;

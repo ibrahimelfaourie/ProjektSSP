@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.event.ActionEvent;
@@ -28,7 +27,13 @@ public class Controller {
     @FXML
     Label failedloggin;
     @FXML
-    Button exit_button;
+    Label friendLabel1;
+    @FXML
+    Label friendLabel2;
+    @FXML
+    Label friendLabel3;
+    @FXML
+    Label friendLabel4;
 
 
     public Controller() {
@@ -73,13 +78,6 @@ public class Controller {
     public void friendList(ActionEvent event){
 
        // int result = dbH.ShowFriends();
-    }
-
-    public void exitButton(ActionEvent event){
-
-        Stage stage = (Stage) exit_button.getScene().getWindow();
-        stage.close();
-
     }
 
 }
