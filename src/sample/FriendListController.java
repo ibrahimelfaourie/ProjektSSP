@@ -3,10 +3,15 @@ package sample;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.collections.ObservableList;
 import javafx.scene.control.SelectionMode;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
@@ -31,6 +36,8 @@ public class FriendListController {
     @FXML
     ListView requests;
     @FXML
+    ListView activeGamesView;
+    @FXML
     Button tackaNej;
     @FXML
     Button tackaJa;
@@ -50,19 +57,34 @@ public class FriendListController {
 
         String opponent = (String) friendList.getSelectionModel().getSelectedItem();
         int opponentId = dbh.findUserId(opponent);
-        utmanaButton.setText(String.valueOf(opponentId));
-        dbh.addRequests(userId,opponentId);
+
+
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("roundsPage.fxml"));
+
+            Parent roundsParent = loader.load();
+            Scene roundsScene = new Scene(roundsParent);
+
+            RoundsController flc = loader.getController();
+            flc.setPlayers(userId, opponentId);
+
+
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(roundsScene);
+            window.show();
 
      } catch (Exception e){
         e.printStackTrace();
         }
     }
-    public void setUserId(int uId){
+    public void setUserId(int uId) throws SQLException {
         userId = uId;
         String[] requestedPlayer = dbh.findRequestsForPlayer(uId);
         if (requestedPlayer.length>0){
             setRequests(requestedPlayer);
         }
+        String[] friends = dbh.ShowFriends(userId);
+        setFriends(friends);
 
     }
     public void setRequests(String[] requestsFromPlayer){
@@ -77,6 +99,12 @@ public class FriendListController {
         String opponent = (String) friendList.getSelectionModel().getSelectedItem();
         if (opponent!= null){
 
+
+
+
+
         }
     }
+
+
 }

@@ -98,21 +98,26 @@ public class DbHandler {
         }
     }
 
-    public void addRequests(int player1, int player2) {
+    public void addRequests(int player1, int player2, int rounds) {
         try {
 
 
-            PreparedStatement stmt = connection.prepareStatement("insert into \"Request\"(\"Player1\" , \"Player2\" , \"Acceptance\") values(?,?,?)");
+            PreparedStatement stmt = connection.prepareStatement("insert into \"Request\"(\"Player1\" , \"Player2\" , \"Acceptance\", \"rounds\" ) values(?,?,?,?)");
             stmt.setInt(1, player1);
             stmt.setInt(2, player2);
             stmt.setInt(3,0);
+            stmt.setInt(4,rounds);
+
+
 
            int result = stmt.executeUpdate();
            connection.commit();
 
 
 
-        } catch (Exception e){}
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public String[]  findRequestsForPlayer(int playerId) {
@@ -164,6 +169,25 @@ public class DbHandler {
 
         }
     }
+
+    public void setRoundsForRequest(int rounds, int requestId){
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement("UPDATE \"Request\" set \"rounds\" = ? where \"RequestID\" = ? ;");
+            stmt.setInt(1, rounds);
+            stmt.setInt(2, requestId);
+            sendUpdate(stmt);
+
+        }catch (Exception e){
+
+        }
+
+
+    }
+
+    public void addNewGame(int requestId){}
+
+
 
 
 

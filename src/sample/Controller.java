@@ -51,7 +51,7 @@ public class Controller {
             int userId = dbH.findUserId(userNameInput);
             //login_Button.setText(String.valueOf(userId));
 
-            String[] friends = dbH.ShowFriends(userId);
+
 
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("friendListPage.fxml"));
@@ -61,7 +61,7 @@ public class Controller {
 
             FriendListController flc = loader.getController();
             flc.setUserId(userId);
-            flc.setFriends(friends);
+
 
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(friendListScene);
