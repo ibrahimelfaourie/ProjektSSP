@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.SelectionMode;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 
@@ -38,9 +39,7 @@ public class FriendListController {
     @FXML
     ListView activeGamesView;
     @FXML
-    Button tackaNej;
-    @FXML
-    Button tackaJa;
+    Button tackaNej, tackaJa, logout_button;
 
 
     public void setFriends(String[] newFriends){
@@ -104,6 +103,24 @@ public class FriendListController {
 
 
         }
+    }
+
+    public void logout(ActionEvent event) {
+        Stage stage;
+        Parent root;
+
+        try {
+            stage = (Stage) logout_button.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("loginPage.fxml"));
+
+            Scene scene = new Scene(root);
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

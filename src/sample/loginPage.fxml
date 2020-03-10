@@ -23,5 +23,6 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
+      <Button fx:id="exit_button" layoutX="269.0" layoutY="434.0" mnemonicParsing="false" onAction="#exitButton" text="Exit" />
     </children>
 </Pane>
