@@ -5,7 +5,8 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.RoundsController">
    <children>
-      <ListView fx:id="roundsView" layoutX="206.0" layoutY="87.0" prefHeight="200.0" prefWidth="200.0" />
-      <Button fx:id="sendRequest" layoutX="470.0" layoutY="314.0" mnemonicParsing="false" onAction="#buttonSendRequest" text="Button" />
+      <ListView fx:id="roundsView" layoutX="206.0" layoutY="80.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: blue;" />
+      <Button fx:id="sendRequest" layoutX="206.0" layoutY="280.0" mnemonicParsing="false" onAction="#buttonSendRequest" style="-fx-border-color: #00cc00;" text="Send Request" />
+      <Button layoutX="365.0" layoutY="280.0" mnemonicParsing="false" style="-fx-border-color: red;" text="Flee" />
    </children>
 </AnchorPane>

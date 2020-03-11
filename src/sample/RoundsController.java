@@ -63,12 +63,6 @@ public class RoundsController {
         window.setScene(friendListScene);
         window.show();
 
-
-
-
-
-
-
     }
 
     public void setRequestId(int newRequestId){
