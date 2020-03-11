@@ -8,11 +8,11 @@
       <ListView fx:id="friendList" layoutX="52.0" layoutY="52.0" prefHeight="149.0" prefWidth="167.0" />
       <Button fx:id="utmanaButton" layoutX="52.0" layoutY="203.0" mnemonicParsing="false" onAction="#challengeFriend" text="Utmana" />
       <ListView fx:id="requests" layoutX="366.0" layoutY="52.0" prefHeight="149.0" prefWidth="180.0" />
-      <Button fx:id="tackaJa" layoutX="367.0" layoutY="203.0" mnemonicParsing="false" text="acceptera utmaning" />
-      <Button fx:id="tackaNej" layoutX="498.0" layoutY="203.0" mnemonicParsing="false" text="Neka" />
+      <Button fx:id="tackaJa" layoutX="367.0" layoutY="203.0" mnemonicParsing="false" style="-fx-border-color: #00ff00;" text="Accept Challenge" />
+      <Button fx:id="tackaNej" layoutX="498.0" layoutY="203.0" mnemonicParsing="false" style="-fx-border-color: red;" text="Neka" />
       <ListView fx:id="activeGamesView" layoutX="52.0" layoutY="291.0" prefHeight="149.0" prefWidth="167.0" />
       <Button fx:id="enterGameButton" layoutX="219.0" layoutY="411.0" mnemonicParsing="false" text="Enter game" />
-      <Button fx:id="logout_button" layoutX="489.0" layoutY="411.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
+      <Button fx:id="logout_button" layoutX="489.0" layoutY="411.0" mnemonicParsing="false" onAction="#logout" style="-fx-border-color: red;" text="Logout" />
       <Label layoutX="52.0" layoutY="14.0" prefHeight="38.0" prefWidth="167.0" text="Friend list" />
       <Label layoutX="366.0" layoutY="14.0" prefHeight="38.0" prefWidth="180.0" text="Requests" />
       <Label layoutX="52.0" layoutY="253.0" prefHeight="38.0" prefWidth="167.0" text="Games" />

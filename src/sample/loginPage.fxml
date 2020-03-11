@@ -8,7 +8,7 @@
     <children>
         <TextField fx:id="username_Input" layoutX="220.0" layoutY="212.0" />
         <PasswordField fx:id="password_Input" layoutX="220.0" layoutY="260.0" />
-        <Button fx:id="login_Button" layoutX="272.0" layoutY="335.0" mnemonicParsing="false" onAction="#checkLogin" text="Login" />
+        <Button fx:id="login_Button" layoutX="272.0" layoutY="335.0" mnemonicParsing="false" onAction="#checkLogin" style="-fx-border-color: #0099ff;" text="Login" />
       <Label layoutX="241.0" layoutY="163.0" prefHeight="25.0" prefWidth="100.0" text="      Login" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -23,6 +23,6 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="exit_button" layoutX="269.0" layoutY="434.0" mnemonicParsing="false" onAction="#exitButton" text="Exit" />
+      <Button fx:id="exit_button" layoutX="278.0" layoutY="435.0" mnemonicParsing="false" onAction="#exitButton" style="-fx-border-color: red;" text="Exit" />
     </children>
 </Pane>
