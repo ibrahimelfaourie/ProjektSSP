@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class Controller {
 
-    DbHandler dbH = new DbHandler();
+   DbHandler dbH;
 
     @FXML
     javafx.scene.control.TextField username_Input;
@@ -30,22 +30,24 @@ public class Controller {
     @FXML
     Button exit_button;
 
+    // anropar initconection i controller klassen
 
     public Controller() {
+        dbH = new DbHandler();
         dbH.initConection();
     }
 
+    // vi kollar att usernamne att passwoed finns och om resultatet större än 0
+    // vi anropar sedan finduserID FÖR ATTT HITT id på den som loggat in sen byter vi scen
+    // vi anropar metoden setuserid som skickar
     public void checkLogin(ActionEvent event) throws IOException, SQLException {
         String userNameInput = username_Input.getText();
         String passwordInput = password_Input.getText();
         int result = dbH.login(userNameInput, passwordInput);
         if (result > 0) {
 
-           // login_Button.setText("Ok");
-           // String [] friends = dbH.ShowFriends(1);
-            int userId = dbH.findUserId(userNameInput);
-            //login_Button.setText(String.valueOf(userId));
 
+            int userId = dbH.findUserId(userNameInput);
 
 
 
@@ -69,10 +71,6 @@ public class Controller {
             failedloggin.setText("Fail to loggin, name or password incorrect!");
         }
 
-    }
-    public void friendList(ActionEvent event){
-
-       // int result = dbH.ShowFriends();
     }
 
     public void exitButton(ActionEvent event){

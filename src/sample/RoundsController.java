@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.stage.Stage;
@@ -19,7 +20,7 @@ import java.sql.SQLException;
 
 public class RoundsController {
 
-    int requestId;
+
     int [] rounds;
     int player1;
     int player2;
@@ -41,7 +42,9 @@ public class RoundsController {
 
     }
 
-
+    // när man valt hur många rundor och då sickar vi requesten
+    // och llägger in  informationen i datatbasen sen tillbaka till friendlistan
+    // vi andropar setuserid och skapar en ny friendlist sida om vilekn spelare det gäller
     public void buttonSendRequest(ActionEvent event) throws IOException, SQLException {
 
         int selectedIndex = roundsView.getSelectionModel().getSelectedIndex();
@@ -65,16 +68,12 @@ public class RoundsController {
 
     }
 
-    public void setRequestId(int newRequestId){
-
-        requestId = newRequestId;
-
-    }
+    // denna metod skickar information till  rounds kontorller, skickar in vilka spelare det handlar om
     public void setPlayers(int p1, int p2){
         player1 = p1;
         player2 = p2;
 
-
+        // vi skapar vilka alternativ det finns och lägger in dom i listviewn (roundsview)
         String[] roundsStrings = new String[]{"3", "5", "7", "9"};
 
         ObservableList<String> list = FXCollections.observableArrayList(roundsStrings);

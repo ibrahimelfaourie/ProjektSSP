@@ -2,6 +2,14 @@ package sample;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+
+// dENNA KLASS FÖR  all komunikation melland app och databas.
+// Init conection upprätter förbindelsen till våran databas
+// connection har vi global så vi slipper koppla upp oss i varje metod flera grr
+// Login metoden är en int för
+
 
 public class DbHandler {
 
@@ -21,6 +29,7 @@ public class DbHandler {
 
     }
 
+    // får vi en träff blir resultatet större än 0
     public int login(String username, String password) throws SQLException {
         PreparedStatement stmt = null;
         try {
@@ -32,23 +41,29 @@ public class DbHandler {
             stmt.setString(2, password);
 
             ResultSet rs = stmt.executeQuery();
-            // ResultSet validUser = stmt.executeQuery();
-            int antal = -1;
+
+            int antal = 0;
+            // tar fram det första objektet i resultat
             if (rs.next()) {
                 antal = rs.getInt("total");
+                // detta gör att de blir mer än 0
             }
             return antal;
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            // return 0;
+
 
         }
+        // om vi får ett värde stänger vi queryn
         if (stmt != null) {
             stmt.close();
         }
         return 0;
+        //  om vi får fel så returnar den 0
     }
 
+    // Efter att vi loggat in behöver vi userID till perosnen för de övriga kommandon(Utgår från namn)
     public int findUserId(String name) throws SQLException {
 
         PreparedStatement stmt = connection.prepareStatement("SELECT \"UserID\" from \"Users\" where \"Name\" = ?; ");
@@ -56,7 +71,17 @@ public class DbHandler {
         int userId = getSingelInt(stmt, "UserID");
         return userId;
     }
+    // Tvärt om förregående metod..vi vill ha namnet på ett userid på t.ex våra listor (då vi utgår från id till dom olika funktiornea)
+    public String findUserName(int userId) throws SQLException {
 
+        PreparedStatement stmt = connection.prepareStatement("SELECT \"Name\" from \"Users\" where \"UserID\" = ?; ");
+        stmt.setInt(1, userId);
+
+        String userName = getSingelString(stmt, "Name");
+
+        return userName;
+    }
+    // hjälpmetod: när vi vill få en Integer
     private int getSingelInt(PreparedStatement stmt, String column) {
 
         try {
@@ -72,7 +97,25 @@ public class DbHandler {
             return -1;
         }
     }
+    // Hjälpmetod: så att vi slipper skriva samma komandon flera grr.
+    // Vi vill få en sträng
+    private String getSingelString(PreparedStatement stmt, String column) {
 
+        try {
+            ResultSet validUser = stmt.executeQuery();
+
+            if (validUser.next()) {
+                String result = validUser.getString(column);
+
+                return result;
+            } else return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // Hitta en specefiks persons vänner utifrån dennes userID.
     public String[] ShowFriends(int userId) throws SQLException {
 
         try {
@@ -83,14 +126,18 @@ public class DbHandler {
             stmt.setInt(1, userId);
             ResultSet validUser = stmt.executeQuery();
             ArrayList<String> namelist = new ArrayList<String>();
+            // Vi får ett ett antal namn, vi vet inte i förväg hur många
+            // Vi stoppar in i arraylist först sen skapar vi en array utifrån storleken.
 
             while ((validUser.next())) {
                 String name = validUser.getString("Name");
                 namelist.add(name);
+                // så länge de finns fler resultat att hämta så läggs den i namelist
 
             }
             String[] array = new String[namelist.size()];
             array = namelist.toArray(array);
+            // vi flyttar över från arraylist till array
             return array;
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,6 +145,8 @@ public class DbHandler {
         }
     }
 
+    // vi lägger till en request från en spelare1(utmanaren) till spelare2(mottagaren)
+    // den som anropar sätter in värdena.
     public void addRequests(int player1, int player2, int rounds) {
         try {
 
@@ -105,39 +154,63 @@ public class DbHandler {
             PreparedStatement stmt = connection.prepareStatement("insert into \"Request\"(\"Player1\" , \"Player2\" , \"Acceptance\", \"rounds\" ) values(?,?,?,?)");
             stmt.setInt(1, player1);
             stmt.setInt(2, player2);
-            stmt.setInt(3,0);
-            stmt.setInt(4,rounds);
+            stmt.setInt(3, 0);
+            stmt.setInt(4, rounds);
 
 
-
-           int result = stmt.executeUpdate();
-           connection.commit();
-
+            int result = stmt.executeUpdate();
+            connection.commit();
 
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    // hittar antalet requests mellan två spelare
+    public int findActiveRequests(int player1, int player2){
+        try{
 
-    public String[]  findRequestsForPlayer(int playerId) {
+            PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) AS total FROM \"Request\" WHERE \"Player1\" = ? AND \"Player2\" = ? AND \"Acceptance\" = ?;  ");
+            stmt.setInt(1, player1);
+            stmt.setInt(2,player2);
+            stmt.setInt(3, 0);
+
+            int number1 = getSingelInt(stmt,"total");
+
+            PreparedStatement stmt2 = connection.prepareStatement("SELECT COUNT(*) AS total FROM \"Request\" WHERE \"Player2\" = ? AND \"Player1\" = ? AND \"Acceptance\" = ?;  ");
+            stmt2.setInt(1, player1);
+            stmt2.setInt(2,player2);
+            stmt2.setInt(3, 0);
+
+            int number2 = getSingelInt(stmt2,"total");
+
+            return number1 + number2;
+        } catch (Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    // Den hittar alla aktiva requests som en spelare har fått där man inte ännu accepterat eller nekat. (Acceptance = 0)
+    public String[] findRequestsForPlayer(int playerId) {
         try {
             PreparedStatement stmt = connection.prepareStatement("select \"Name\" from \"Users\" inner join \"Request\" on " +
                     "\"Request\".\"Player1\" = \"Users\".\"UserID\" where \"Player2\" = ? and \"Acceptance\" = ?");
             stmt.setInt(1, playerId);
             stmt.setInt(2, 0);
-            String[] requestPlayer = getStringArray(stmt,"Name");
+            String[] requestPlayer = getStringArray(stmt, "Name");
             return requestPlayer;
         } catch (Exception e) {
             return null;
         }
     }
-    private String [] getStringArray(PreparedStatement stmt, String column){
+
+    // hjälpmetod: när man röknar med att få mer än ett resultat (strängar)
+    // dvs hämtar flera reslautat
+    // använder först arraylist som sen konverteras till array
+    private String[] getStringArray(PreparedStatement stmt, String column) {
 
         try {
-
-
-
             ResultSet validUser = stmt.executeQuery();
             ArrayList<String> namelist = new ArrayList<String>();
 
@@ -154,38 +227,211 @@ public class DbHandler {
             return null;
         }
     }
-    public void acceptGame(int player2, String challenger){
+    // återigen hjälpmetod: När vi hämtar flera integers
+    private int[] getIntArray(PreparedStatement stmt, String column) {
+
         try {
-            int player1 = findUserId(challenger);
+            ResultSet validUser = stmt.executeQuery();
+            ArrayList<Integer> namelist = new ArrayList<Integer>();
 
-        }catch (Exception e){
+            while ((validUser.next())) {
+                int name = validUser.getInt(column);
+                namelist.add(name);
 
+            }
+            int[] array = new int[namelist.size()];
+            for (int i = 0; i<namelist.size(); i++){
+                array[i] = namelist.get(i);
+            }
+
+            return array;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
-    private void sendUpdate(PreparedStatement stmt){
+
+
+    // hjälpmetod: när vi bara vill updatera ett värde utan returna något
+    private void sendUpdate(PreparedStatement stmt) {
         try {
             int result = stmt.executeUpdate();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
-    public void setRoundsForRequest(int rounds, int requestId){
+    // registrerar ett nytt spel i databasen.
+    // utgår från vilken request
+    // gamestaus = 0 innebär att spelet körs och inte klart
+    // winnerid null då ingen vunnit än
+    public void addNewGame(int requestId) {
 
         try {
-            PreparedStatement stmt = connection.prepareStatement("UPDATE \"Request\" set \"rounds\" = ? where \"RequestID\" = ? ;");
-            stmt.setInt(1, rounds);
-            stmt.setInt(2, requestId);
-            sendUpdate(stmt);
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO \"Game\"(\"RequestID\", \"Gamestatus\", \"winnerid\") values(?,?,NULL); ");
+            stmt.setInt(1, requestId);
+            stmt.setInt(2, 0);
+           // stmt.setInt(3, 0);
+
+            stmt.executeUpdate();
+            connection.commit();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    // Vi vet att player1 utmanat player2 och vi vill hitta det requestID för att föra vidare till match tabellen
+    public int findRequestId(int player1, int player2) {
+
+        try {
+
+            PreparedStatement stmt = connection.prepareStatement("SELECT \"RequestID\" FROM \"Request\" WHERE \"Player1\"= ? AND \"Player2\"= ? ");
+            stmt.setInt(1, player1);
+            stmt.setInt(2, player2);
+            int rid = getSingelInt(stmt, "RequestID");
+            return rid;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+
+
+    }
+    // Uppdaterar aceptance i requesttabellen dvs när en spelare accepterar en request
+    public void acceptRequest(int requestId){
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement("UPDATE \"Request\" SET \"Acceptance\" = ? WHERE \"RequestID\"= ? ;");
+            stmt.setInt(1, 1);
+            stmt.setInt(2,requestId);
+
+            stmt.executeUpdate();
+            connection.commit();
+            // vi använder commit när vi ska ändra något
+            stmt.close();
 
         }catch (Exception e){
+            e.printStackTrace();
+        }
 
+    }
+
+    // uppdaterar aceptance i requesttabellen dvs när man nekar en request
+    public void declineRequest(int requestId){
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement("UPDATE \"Request\" SET \"Acceptance\" = ? WHERE \"RequestID\"= ? ;");
+            stmt.setInt(1, 2);
+            stmt.setInt(2,requestId);
+
+            stmt.executeUpdate();
+            connection.commit();
+            stmt.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    // den hittar aktiva alla matcher som en spelare är inblandad i.
+    // vi får en lista med namn på alla spelare man har match mot
+    // vi vill hitta bägge kombinationerna
+    public String[] findGamesForPlayer(int userId){
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement("SELECT \"Player1\" FROM \"Request\" INNER JOIN \"Game\" ON " +
+                    "\"Game\".\"RequestID\"= \"Request\".\"RequestID\" WHERE \"Player2\"= ?");
+            stmt.setInt(1, userId);
+
+            String[] array1 = getStringArray(stmt, "Player1");
+            PreparedStatement stmt2 = connection.prepareStatement("SELECT \"Player2\" FROM \"Request\" INNER JOIN \"Game\" ON " +
+                    "\"Game\".\"RequestID\"= \"Request\".\"RequestID\" WHERE \"Player1\"= ?");
+            stmt2.setInt(1, userId);
+            String[] array2 = getStringArray(stmt2, "Player2");
+
+            ArrayList<String> aL1 = new ArrayList<>(Arrays.asList(array1));
+            // där jag har utmanat andra
+
+            ArrayList<String> aL2 = new ArrayList<>(Arrays.asList(array2));
+            // där andra utmanat mig
+
+            aL1.removeAll(aL2);
+            // ett trick för att få med från den ena till den andra utan att få kopior
+            aL1.addAll(aL2);
+
+            LinkedHashSet<String> hs = new LinkedHashSet<>(aL1);
+            // allt som finns med 2grr tas bort automatiskt
+            aL1= new ArrayList<>(hs);
+
+            // Det slutgiltiga det vi slog ihop i de förregånde hamna i array3
+            String[] array3= new String[aL1.size()];
+            array3 = aL1.toArray(array3);
+
+            String[] names = new String[array3.length];
+            // i arrayerna ligger bara userid så vi vill få namnen på useriden
+            // vi får in namnen med hjälp av metoden finduserName
+
+            for (int i = 0; i<array3.length; i++){
+
+                int pId = Integer.parseInt(array3[i]);
+                String name = findUserName(pId);
+                names[i] = name;
+            }
+            return names;
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+
+
+        }
+        public int findGameId(int requestId) throws SQLException {
+
+        PreparedStatement stmt = connection.prepareStatement("SELECT \"GameID\" FROM \"Game\" WHERE \"RequestID\"= ? ");
+        stmt.setInt(1, requestId);
+
+        int rid = getSingelInt(stmt, "GameID");
+        return rid;
+
+    }
+
+    public void addMatchLog(){
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO \"MatchLog\"(\"RequestID\", \"Gamestatus\", \"winnerid\") values(?,?,NULL);");
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
 
     }
 
-    public void addNewGame(int requestId){}
+  /*  public void addNewGame(int requestId) {
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO \"Game\"(\"RequestID\", \"Gamestatus\", \"winnerid\") values(?,?,NULL); ");
+            stmt.setInt(1, requestId);
+            stmt.setInt(2, 0);
+            // stmt.setInt(3, 0);
+
+            stmt.executeUpdate();
+            connection.commit();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+   */
+
 
 
 
