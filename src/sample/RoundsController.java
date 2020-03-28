@@ -28,7 +28,7 @@ public class RoundsController {
     @FXML
     ListView roundsView ;
     @FXML
-    Button sendRequest;
+    Button sendRequest, flee;
 
 
     DbHandler dbh;
@@ -79,6 +79,27 @@ public class RoundsController {
         ObservableList<String> list = FXCollections.observableArrayList(roundsStrings);
         roundsView.setItems(list);
         roundsView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+    }
+
+    public void fleeButton(ActionEvent event) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("friendListPage.fxml"));
+
+            Parent friendListParent = loader.load();
+            Scene friendListScene = new Scene(friendListParent);
+
+            FriendListController flc = loader.getController();
+            flc.setUserId(player1);
+
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(friendListScene);
+            window.show();
+
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

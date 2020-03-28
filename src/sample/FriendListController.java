@@ -12,7 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.collections.ObservableList;
 import javafx.scene.control.SelectionMode;
 import javafx.stage.Stage;
-import org.intellij.lang.annotations.Language.*;
+//import org.intellij.lang.annotations.Language.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -216,10 +216,6 @@ public class FriendListController {
             int requestId = dbh.findRequestId(oppenentId, userId);
 
             dbh.findGameId(requestId);
-
-
-
-
 
         }
 
