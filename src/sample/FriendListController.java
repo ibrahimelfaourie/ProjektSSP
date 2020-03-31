@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.collections.ObservableList;
 import javafx.scene.control.SelectionMode;
@@ -42,6 +43,10 @@ public class FriendListController {
     ListView activeGamesView;
     @FXML
     Button tackaNej, tackaJa, logout_button;
+    @FXML
+    Button enterGameButton;
+    @FXML
+    Label totalWins, totalLoss, totalGames;
 
 
     // En person som loggat in så vi hämtar den personens vänner och lägger in namnen i friendlist listan
@@ -70,13 +75,11 @@ public class FriendListController {
             if (requests== 0){
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("roundsPage.fxml"));
-
                 Parent roundsParent = loader.load();
                 Scene roundsScene = new Scene(roundsParent);
 
                 RoundsController flc = loader.getController();
                 flc.setPlayers(userId, opponentId);
-
 
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(roundsScene);
@@ -86,10 +89,7 @@ public class FriendListController {
 
                 // ett felmedelande
             }
-
-
-
-     } catch (Exception e){
+        } catch (Exception e){
         e.printStackTrace();
         }
     }
@@ -187,6 +187,7 @@ public class FriendListController {
         ObservableList<String> list = FXCollections.observableArrayList(gamesFromPlayer);
         activeGamesView.setItems(list);
         activeGamesView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
     }
 
     public void logout(ActionEvent event) {
@@ -206,7 +207,7 @@ public class FriendListController {
         }
 
     }
-    public void enterGame(ActionEvent event) throws SQLException {
+    public void enterGame(ActionEvent event) throws SQLException, IOException {
 
         String opponent = (String) activeGamesView.getSelectionModel().getSelectedItem();
 
@@ -215,7 +216,38 @@ public class FriendListController {
             int oppenentId = dbh.findUserId(opponent);
             int requestId = dbh.findRequestId(oppenentId, userId);
 
-            dbh.findGameId(requestId);
+            if(requestId == -1){
+                requestId = dbh.findRequestId(userId,oppenentId);
+            }
+
+           int gameId = dbh.findGameId(requestId);
+
+
+            if (gameId!= 0){
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("GamePage.fxml"));
+
+                Parent roundsParent = loader.load();
+                Scene roundsScene = new Scene(roundsParent);
+
+
+                GamePageController flc = loader.getController();
+                flc.setGameId(gameId);
+                flc.setPlayerId(userId,oppenentId);
+
+
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(roundsScene);
+                window.show();
+
+            }else{
+
+                // ett felmedelande
+            }
+
+
+
+
 
         }
 

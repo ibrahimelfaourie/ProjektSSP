@@ -12,8 +12,29 @@ import java.util.LinkedHashSet;
 
 
 public class DbHandler {
+    //matris
+    int[][] outcome;
+
+    public DbHandler() {
+        initConection();
+        outcome = new int[4][4];
+        outcome[1][1] = 0;
+        outcome[2][2] = 0;
+        outcome[3][3] = 0;
+
+        outcome[1][2] = 1;
+        outcome[1][3] = 2;
+
+        outcome[2][1] = 2;
+        outcome[2][3] = 1;
+
+        outcome[3][1] = 1;
+        outcome[3][2] = 2;
+
+    }
 
     private Connection connection = null;
+
 
     public void initConection() {
 
@@ -71,6 +92,7 @@ public class DbHandler {
         int userId = getSingelInt(stmt, "UserID");
         return userId;
     }
+
     // Tvärt om förregående metod..vi vill ha namnet på ett userid på t.ex våra listor (då vi utgår från id till dom olika funktiornea)
     public String findUserName(int userId) throws SQLException {
 
@@ -81,6 +103,7 @@ public class DbHandler {
 
         return userName;
     }
+
     // hjälpmetod: när vi vill få en Integer
     private int getSingelInt(PreparedStatement stmt, String column) {
 
@@ -97,6 +120,7 @@ public class DbHandler {
             return -1;
         }
     }
+
     // Hjälpmetod: så att vi slipper skriva samma komandon flera grr.
     // Vi vill få en sträng
     private String getSingelString(PreparedStatement stmt, String column) {
@@ -166,26 +190,27 @@ public class DbHandler {
             e.printStackTrace();
         }
     }
+
     // hittar antalet requests mellan två spelare
-    public int findActiveRequests(int player1, int player2){
-        try{
+    public int findActiveRequests(int player1, int player2) {
+        try {
 
             PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) AS total FROM \"Request\" WHERE \"Player1\" = ? AND \"Player2\" = ? AND \"Acceptance\" = ?;  ");
             stmt.setInt(1, player1);
-            stmt.setInt(2,player2);
+            stmt.setInt(2, player2);
             stmt.setInt(3, 0);
 
-            int number1 = getSingelInt(stmt,"total");
+            int number1 = getSingelInt(stmt, "total");
 
             PreparedStatement stmt2 = connection.prepareStatement("SELECT COUNT(*) AS total FROM \"Request\" WHERE \"Player2\" = ? AND \"Player1\" = ? AND \"Acceptance\" = ?;  ");
             stmt2.setInt(1, player1);
-            stmt2.setInt(2,player2);
+            stmt2.setInt(2, player2);
             stmt2.setInt(3, 0);
 
-            int number2 = getSingelInt(stmt2,"total");
+            int number2 = getSingelInt(stmt2, "total");
 
             return number1 + number2;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return -1;
         }
@@ -227,6 +252,7 @@ public class DbHandler {
             return null;
         }
     }
+
     // återigen hjälpmetod: När vi hämtar flera integers
     private int[] getIntArray(PreparedStatement stmt, String column) {
 
@@ -240,7 +266,7 @@ public class DbHandler {
 
             }
             int[] array = new int[namelist.size()];
-            for (int i = 0; i<namelist.size(); i++){
+            for (int i = 0; i < namelist.size(); i++) {
                 array[i] = namelist.get(i);
             }
 
@@ -271,7 +297,7 @@ public class DbHandler {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO \"Game\"(\"RequestID\", \"Gamestatus\", \"winnerid\") values(?,?,NULL); ");
             stmt.setInt(1, requestId);
             stmt.setInt(2, 0);
-           // stmt.setInt(3, 0);
+            // stmt.setInt(3, 0);
 
             stmt.executeUpdate();
             connection.commit();
@@ -300,38 +326,39 @@ public class DbHandler {
 
 
     }
+
     // Uppdaterar aceptance i requesttabellen dvs när en spelare accepterar en request
-    public void acceptRequest(int requestId){
+    public void acceptRequest(int requestId) {
 
         try {
             PreparedStatement stmt = connection.prepareStatement("UPDATE \"Request\" SET \"Acceptance\" = ? WHERE \"RequestID\"= ? ;");
             stmt.setInt(1, 1);
-            stmt.setInt(2,requestId);
+            stmt.setInt(2, requestId);
 
             stmt.executeUpdate();
             connection.commit();
             // vi använder commit när vi ska ändra något
             stmt.close();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
     // uppdaterar aceptance i requesttabellen dvs när man nekar en request
-    public void declineRequest(int requestId){
+    public void declineRequest(int requestId) {
 
         try {
             PreparedStatement stmt = connection.prepareStatement("UPDATE \"Request\" SET \"Acceptance\" = ? WHERE \"RequestID\"= ? ;");
             stmt.setInt(1, 2);
-            stmt.setInt(2,requestId);
+            stmt.setInt(2, requestId);
 
             stmt.executeUpdate();
             connection.commit();
             stmt.close();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -340,16 +367,16 @@ public class DbHandler {
     // den hittar aktiva alla matcher som en spelare är inblandad i.
     // vi får en lista med namn på alla spelare man har match mot
     // vi vill hitta bägge kombinationerna
-    public String[] findGamesForPlayer(int userId){
+    public String[] findGamesForPlayer(int userId) {
 
         try {
             PreparedStatement stmt = connection.prepareStatement("SELECT \"Player1\" FROM \"Request\" INNER JOIN \"Game\" ON " +
-                    "\"Game\".\"RequestID\"= \"Request\".\"RequestID\" WHERE \"Player2\"= ?");
+                    "\"Game\".\"RequestID\"= \"Request\".\"RequestID\" WHERE \"Player2\"= ? AND \"Gamestatus\"= 0;");
             stmt.setInt(1, userId);
 
             String[] array1 = getStringArray(stmt, "Player1");
             PreparedStatement stmt2 = connection.prepareStatement("SELECT \"Player2\" FROM \"Request\" INNER JOIN \"Game\" ON " +
-                    "\"Game\".\"RequestID\"= \"Request\".\"RequestID\" WHERE \"Player1\"= ?");
+                    "\"Game\".\"RequestID\"= \"Request\".\"RequestID\" WHERE \"Player1\"= ? AND \"Gamestatus\"= 0;");
             stmt2.setInt(1, userId);
             String[] array2 = getStringArray(stmt2, "Player2");
 
@@ -365,17 +392,17 @@ public class DbHandler {
 
             LinkedHashSet<String> hs = new LinkedHashSet<>(aL1);
             // allt som finns med 2grr tas bort automatiskt
-            aL1= new ArrayList<>(hs);
+            aL1 = new ArrayList<>(hs);
 
             // Det slutgiltiga det vi slog ihop i de förregånde hamna i array3
-            String[] array3= new String[aL1.size()];
+            String[] array3 = new String[aL1.size()];
             array3 = aL1.toArray(array3);
 
             String[] names = new String[array3.length];
             // i arrayerna ligger bara userid så vi vill få namnen på useriden
             // vi får in namnen med hjälp av metoden finduserName
 
-            for (int i = 0; i<array3.length; i++){
+            for (int i = 0; i < array3.length; i++) {
 
                 int pId = Integer.parseInt(array3[i]);
                 String name = findUserName(pId);
@@ -383,59 +410,202 @@ public class DbHandler {
             }
             return names;
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
 
 
+    }
 
-        }
-        public int findGameId(int requestId) throws SQLException {
+    public int findGameId(int requestId) throws SQLException {
 
         PreparedStatement stmt = connection.prepareStatement("SELECT \"GameID\" FROM \"Game\" WHERE \"RequestID\"= ? ");
         stmt.setInt(1, requestId);
 
-        int rid = getSingelInt(stmt, "GameID");
-        return rid;
+        int gid = getSingelInt(stmt, "GameID");
+        return gid;
 
     }
 
-    public void addMatchLog(){
+    public int findNumberRoundsForGame(int gameId) throws SQLException {
+        PreparedStatement stmt = connection.prepareStatement("SELECT \"rounds\" FROM \"Request\" INNER JOIN \"Game\" ON" +
+                "\"Game\".\"RequestID\"= \"Request\".\"RequestID\" WHERE \"GameID\"= ?");
+        stmt.setInt(1, gameId);
+        int rounds = getSingelInt(stmt, "rounds");
+        return rounds;
 
-        try {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO \"MatchLog\"(\"RequestID\", \"Gamestatus\", \"winnerid\") values(?,?,NULL);");
+    }
 
-        }catch (Exception e){
-            e.printStackTrace();
+    public String[] findNamesForGamePage(int gameId) throws SQLException {
+
+        PreparedStatement stmt = connection.prepareStatement("SELECT \"Player1\" FROM \"Request\" INNER JOIN \"Game\" ON" +
+                "\"Game\".\"RequestID\"= \"Request\".\"RequestID\" WHERE \"GameID\"= ?");
+        stmt.setInt(1, gameId);
+        int player1 = getSingelInt(stmt, "Player1");
+        String name1 = findUserName(player1);
+
+        PreparedStatement stmt2 = connection.prepareStatement("SELECT \"Player2\" FROM \"Request\" INNER JOIN \"Game\" ON" +
+                "\"Game\".\"RequestID\"= \"Request\".\"RequestID\" WHERE \"GameID\"= ?");
+        stmt2.setInt(1, gameId);
+        int player2 = getSingelInt(stmt2, "Player2");
+        String name2 = findUserName(player2);
+
+        String[] arrayNames = new String[2];
+        arrayNames[0] = name1;
+        arrayNames[1] = name2;
+
+        return arrayNames;
+
+    }
+
+    public int playerChoice(int gameId, int round, int playerNumber, int choice) throws SQLException {
+
+        boolean cm = choiceMade(gameId, round, 3 - playerNumber);
+
+        String playerColumn;
+        if (playerNumber == 1) {
+            playerColumn = "p1choice";
+        } else {
+            playerColumn = "p2choice";
         }
 
-
-    }
-
-  /*  public void addNewGame(int requestId) {
-
-        try {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO \"Game\"(\"RequestID\", \"Gamestatus\", \"winnerid\") values(?,?,NULL); ");
-            stmt.setInt(1, requestId);
-            stmt.setInt(2, 0);
-            // stmt.setInt(3, 0);
+        if (cm) {
+            PreparedStatement stmt = connection.prepareStatement("UPDATE \"MatchLog\" SET " + playerColumn + " = ? WHERE \"GameID\" = ?" +
+                    "AND \"round\" = ?");
+            stmt.setInt(1, choice);
+            stmt.setInt(2, gameId);
+            stmt.setInt(3, round);
 
             stmt.executeUpdate();
             connection.commit();
             stmt.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            int otherPlayersChoice = findChoice(gameId, round, 3 - playerNumber);
+            int result;
+            if (playerNumber == 1) {
+                result = calculateResult(choice, otherPlayersChoice);
+            } else {
+                result = calculateResult(otherPlayersChoice, choice);
+            }
+            if (result > 0) {
+
+                updateScore(gameId, round, result);
+            } else {
+                removeRound(gameId, round);
+            }
+            return result;
+        } else {
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO \"MatchLog\"(\"GameID\"," + playerColumn + ",\"round\") VALUES(?, ?, ?)");
+            stmt.setInt(1, gameId);
+            stmt.setInt(2, choice);
+            stmt.setInt(3, round);
+
+            stmt.executeUpdate();
+            connection.commit();
+            stmt.close();
+            return -1;
+
+        }
+
+
+    }
+
+    private void removeRound(int gameId, int round) throws SQLException {
+        PreparedStatement stmt = connection.prepareStatement("DELETE FROM \"MatchLog\" WHERE \"GameID\"= ? AND \"round\" = ?");
+        stmt.setInt(1, gameId);
+        stmt.setInt(2, round);
+        stmt.executeUpdate();
+        connection.commit();
+        stmt.close();
+
+    }
+
+    private int findChoice(int gameId, int round, int playerNumber) throws SQLException {
+
+        String playerColumn;
+        if (playerNumber == 1) {
+            playerColumn = "p1choice";
+        } else {
+            playerColumn = "p2choice";
+        }
+
+        PreparedStatement stmt = connection.prepareStatement("SELECT " + playerColumn + " FROM \"MatchLog\" WHERE \"GameID\" = ? AND \"round\" = ? ");
+        stmt.setInt(1, gameId);
+        stmt.setInt(2, round);
+        int choice = getSingelInt(stmt, playerColumn);
+        return choice;
+
+    }
+
+    public boolean choiceMade(int gameId, int round, int playerNumber) throws SQLException {
+
+        String playerColumn;
+        if (playerNumber == 1) {
+            playerColumn = "p1choice";
+        } else {
+            playerColumn = "p2choice";
+        }
+        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) AS total FROM \"MatchLog\" WHERE \"GameID\"= ? AND \"round\"= ? AND " + playerColumn + ">0");
+        stmt.setInt(1, gameId);
+        stmt.setInt(2, round);
+        int result = getSingelInt(stmt, "total");
+        if (result > 0) {
+            return true;
+        } else {
+            return false;
         }
 
     }
 
-   */
+    private int calculateResult(int p1Choice, int p2Choice) {
+
+        return outcome[p1Choice][p2Choice];
+    }
+
+    public int findNumberOfRoundsPlayed(int gameId) throws SQLException {
+        PreparedStatement stmt = connection.prepareStatement("SELECT MAX(round) AS maxrounds FROM \"MatchLog\" WHERE \"GameID\" = ? AND \"Score\">0");
+        stmt.setInt(1, gameId);
+        int result = getSingelInt(stmt, "maxrounds");
+        return result;
+    }
 
 
+    public void updateScore(int gameId, int round, int score) throws SQLException {
+        PreparedStatement stmt = connection.prepareStatement("UPDATE \"MatchLog\" SET \"Score\" = ? WHERE \"GameID\" = ? AND \"round\" = ? ");
+        stmt.setInt(1, score);
+        stmt.setInt(2, gameId);
+        stmt.setInt(3, round);
 
+        stmt.executeUpdate();
+        connection.commit();
+        stmt.close();
+    }
 
+    public int[] getscoresForGame(int gameId) throws SQLException {
+        PreparedStatement stmt = connection.prepareStatement("SELECT \"Score\" FROM \"MatchLog\" WHERE \"GameID\"= ? AND \"Score\">0");
+        stmt.setInt(1, gameId);
+        int[] results = getIntArray(stmt, "Score");
+        return results;
+    }
 
+    public void setWinnerOfGame(int gameId, int winnerPlayer) throws SQLException {
+
+        PreparedStatement stmt = connection.prepareStatement("UPDATE \"Game\" SET \"winnerid\"= ? WHERE \"GameID\"= ?");
+
+        stmt.setInt(1, winnerPlayer);
+        stmt.setInt(2, gameId);
+        stmt.executeUpdate();
+        connection.commit();
+        stmt.close();
+
+        PreparedStatement stmt2 = connection.prepareStatement("UPDATE \"Game\" SET \"Gamestatus\"= 1 WHERE \"GameID\"= ?");
+
+        stmt2.setInt(1, gameId);
+        stmt2.executeUpdate();
+        connection.commit();
+        stmt2.close();
+
+    }
 
 
 }

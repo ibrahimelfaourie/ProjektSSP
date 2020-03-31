@@ -21,12 +21,12 @@ import java.sql.SQLException;
 public class RoundsController {
 
 
-    int [] rounds;
+    int[] rounds;
     int player1;
     int player2;
 
     @FXML
-    ListView roundsView ;
+    ListView roundsView;
     @FXML
     Button sendRequest, flee;
 
@@ -34,7 +34,7 @@ public class RoundsController {
     DbHandler dbh;
 
 
-    public RoundsController(){
+    public RoundsController() {
 
         dbh = new DbHandler();
         rounds = new int[]{3, 5, 7, 9};
@@ -69,7 +69,7 @@ public class RoundsController {
     }
 
     // denna metod skickar information till  rounds kontorller, skickar in vilka spelare det handlar om
-    public void setPlayers(int p1, int p2){
+    public void setPlayers(int p1, int p2) {
         player1 = p1;
         player2 = p2;
 
