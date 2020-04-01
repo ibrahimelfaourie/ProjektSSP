@@ -38,7 +38,7 @@ public class GamePageController {
     @FXML
     Button backButton, rockButton, scissorsButton, paperButton;
     @FXML
-    Label playerOne, playerTwo, p1Points, p2Points, roundsLabel;
+    Label playerOne, playerTwo, roundsLabel;
     @FXML
     ListView resultListp1, resultListp2;
 
