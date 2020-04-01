@@ -2,26 +2,72 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.FriendListController">
    <children>
       <ListView fx:id="friendList" layoutX="52.0" layoutY="52.0" prefHeight="149.0" prefWidth="167.0" style="-fx-border-color: blue;" />
-      <Button fx:id="utmanaButton" layoutX="52.0" layoutY="203.0" mnemonicParsing="false" onAction="#challengeFriend" style="-fx-border-color: #0099ff;" text="Challenge" />
+      <Button fx:id="utmanaButton" layoutX="52.0" layoutY="203.0" mnemonicParsing="false" onAction="#challengeFriend" style="-fx-border-color: #0099ff;" text="Challenge">
+         <font>
+            <Font name="System Bold" size="12.800000190734863" />
+         </font></Button>
       <ListView fx:id="requests" layoutX="366.0" layoutY="52.0" prefHeight="149.0" prefWidth="180.0" style="-fx-border-color: red;" />
-      <Button fx:id="tackaJa" layoutX="366.0" layoutY="203.0" mnemonicParsing="false" onAction="#acceptChallenge" style="-fx-border-color: #00cc00;" text="Accept Challenge" />
-      <Button fx:id="tackaNej" layoutX="485.0" layoutY="203.0" mnemonicParsing="false" onAction="#declineChallenge" style="-fx-border-color: red;" text="Decline" />
+      <Button fx:id="tackaJa" layoutX="366.0" layoutY="203.0" mnemonicParsing="false" onAction="#acceptChallenge" style="-fx-border-color: #00cc00;" text="Accept Challenge">
+         <font>
+            <Font name="System Bold" size="12.800000190734863" />
+         </font></Button>
+      <Button fx:id="tackaNej" layoutX="485.0" layoutY="203.0" mnemonicParsing="false" onAction="#declineChallenge" style="-fx-border-color: red;" text="Decline">
+         <font>
+            <Font name="System Bold" size="12.800000190734863" />
+         </font></Button>
       <ListView fx:id="activeGamesView" layoutX="52.0" layoutY="291.0" prefHeight="149.0" prefWidth="167.0" style="-fx-border-color: green;" />
-      <Button fx:id="enterGameButton" layoutX="219.0" layoutY="409.0" mnemonicParsing="false" onAction="#enterGame" style="-fx-border-color: #0099ff;" text="Enter game" />
-      <Button fx:id="logout_button" layoutX="485.0" layoutY="409.0" mnemonicParsing="false" onAction="#logout" style="-fx-border-color: red;" text="Logout" />
-      <Label layoutX="52.0" layoutY="14.0" prefHeight="38.0" prefWidth="167.0" text="Friend list" />
-      <Label layoutX="366.0" layoutY="14.0" prefHeight="38.0" prefWidth="180.0" text="Requests" />
-      <Label layoutX="52.0" layoutY="253.0" prefHeight="38.0" prefWidth="167.0" text="Games" />
-      <Label layoutX="372.0" layoutY="272.0" text="Statistik" />
-      <Label layoutX="372.0" layoutY="305.0" text="Wins:" />
-      <Label fx:id="totalGames" layoutX="473.0" layoutY="357.0" text="?" />
-      <Label layoutX="372.0" layoutY="330.0" text="Loss:" />
-      <Label layoutX="373.0" layoutY="357.0" text="Games played:" />
-      <Label fx:id="totalWins" layoutX="473.0" layoutY="305.0" text="?" />
-      <Label fx:id="totalLoss" layoutX="473.0" layoutY="330.0" text="?" />
+      <Button fx:id="enterGameButton" layoutX="219.0" layoutY="409.0" mnemonicParsing="false" onAction="#enterGame" style="-fx-border-color: #0099ff;" text="Enter game">
+         <font>
+            <Font name="System Bold" size="12.800000190734863" />
+         </font></Button>
+      <Button fx:id="logout_button" layoutX="485.0" layoutY="409.0" mnemonicParsing="false" onAction="#logout" style="-fx-border-color: red;" text="Logout">
+         <font>
+            <Font name="System Bold" size="12.800000190734863" />
+         </font></Button>
+      <Label layoutX="52.0" layoutY="14.0" prefHeight="38.0" prefWidth="167.0" text="Friend list">
+         <font>
+            <Font name="System Bold" size="12.800000190734863" />
+         </font></Label>
+      <Label layoutX="366.0" layoutY="14.0" prefHeight="38.0" prefWidth="180.0" text="Requests">
+         <font>
+            <Font name="System Bold" size="12.800000190734863" />
+         </font></Label>
+      <Label layoutX="52.0" layoutY="253.0" prefHeight="38.0" prefWidth="167.0" text="Games">
+         <font>
+            <Font name="System Bold" size="12.800000190734863" />
+         </font></Label>
+      <Label layoutX="372.0" layoutY="272.0" text="Statistik">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <Label layoutX="372.0" layoutY="305.0" text="Wins:">
+         <font>
+            <Font name="System Bold Italic" size="12.800000190734863" />
+         </font></Label>
+      <Label fx:id="totalGames" layoutX="473.0" layoutY="357.0" text="?">
+         <font>
+            <Font name="System Bold Italic" size="12.800000190734863" />
+         </font></Label>
+      <Label layoutX="372.0" layoutY="330.0" text="Loss:">
+         <font>
+            <Font name="System Bold Italic" size="12.800000190734863" />
+         </font></Label>
+      <Label layoutX="373.0" layoutY="357.0" text="Games played:">
+         <font>
+            <Font name="System Bold Italic" size="12.800000190734863" />
+         </font></Label>
+      <Label fx:id="totalWins" layoutX="473.0" layoutY="305.0" text="?">
+         <font>
+            <Font name="System Bold Italic" size="12.800000190734863" />
+         </font></Label>
+      <Label fx:id="totalLoss" layoutX="473.0" layoutY="330.0" text="?">
+         <font>
+            <Font name="System Bold Italic" size="12.800000190734863" />
+         </font></Label>
    </children>
 </Pane>
