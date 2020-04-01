@@ -6,8 +6,8 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
-        <TextField fx:id="username_Input" layoutX="220.0" layoutY="212.0" style="-fx-border-color: #0099ff;" />
-        <PasswordField fx:id="password_Input" layoutX="220.0" layoutY="260.0" style="-fx-border-color: #0099ff;" />
+        <TextField fx:id="username_Input" layoutX="220.0" layoutY="212.0" onAction="#checkLogin" style="-fx-border-color: #0099ff;" />
+        <PasswordField fx:id="password_Input" layoutX="220.0" layoutY="260.0" onAction="#checkLogin" style="-fx-border-color: #0099ff;" />
         <Button fx:id="login_Button" layoutX="272.0" layoutY="335.0" mnemonicParsing="false" onAction="#checkLogin" style="-fx-border-color: #0099ff;" text="Login" />
       <Label layoutX="241.0" layoutY="163.0" prefHeight="25.0" prefWidth="100.0" text="      Login" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS">
          <font>
