@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.collections.ObservableList;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 //import org.intellij.lang.annotations.Language.*;
 
@@ -87,7 +90,9 @@ public class FriendListController {
 
             }else{
 
-                // ett felmedelande
+                popupMessage("You already challenged this friend");
+
+
             }
         } catch (Exception e){
         e.printStackTrace();
@@ -104,6 +109,7 @@ public class FriendListController {
         String[] friends = dbh.ShowFriends(userId);
         setFriends(friends);
         updateGameList();
+        updateStatistics();
 
     }
 
@@ -148,11 +154,12 @@ public class FriendListController {
         if (opponent!= null){
 
         int oppenentId = dbh.findUserId(opponent);
-        int requestId = dbh.findRequestId(oppenentId, userId);
+        int requestId = dbh.findReqIdUnAccepted(oppenentId, userId);
 
             dbh.addNewGame(requestId);
 
             dbh.acceptRequest(requestId);
+
 
             updateGameList();
             updateRequestList();
@@ -246,10 +253,51 @@ public class FriendListController {
             }
 
 
-
-
-
         }
+
+    }
+
+    public void updateStatistics() throws SQLException {
+
+        int nrGames = dbh.findNumberOfGames(userId);
+        totalGames.setText(String.valueOf(nrGames));
+
+        int nrWins = dbh.findNumberOfWins(userId);
+        totalWins.setText(String.valueOf(nrWins));
+
+        int nrLoss = dbh.findNumberOfLoss(userId);
+        totalLoss.setText(String.valueOf(nrLoss));
+
+
+    }
+
+    public void popupMessage(String message){
+
+        Stage popupwindow = new Stage();
+
+        popupwindow.initModality(Modality.APPLICATION_MODAL);
+        popupwindow.setTitle("This is a pop up window");
+        Label label1 = new Label(message);
+
+        Button button1 = new Button("Close");
+
+
+        button1.setOnAction(e -> popupwindow.close());
+
+
+        VBox layout = new VBox(10);
+
+
+        layout.getChildren().addAll(label1, button1);
+
+        layout.setAlignment(Pos.CENTER);
+
+        Scene scene1 = new Scene(layout, 300, 250);
+
+        popupwindow.setScene(scene1);
+
+        popupwindow.showAndWait();
+
 
     }
 

@@ -294,7 +294,8 @@ public class DbHandler {
     public void addNewGame(int requestId) {
 
         try {
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO \"Game\"(\"RequestID\", \"Gamestatus\", \"winnerid\") values(?,?,NULL); ");
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO \"Game\"(\"RequestID\", " +
+                    "\"Gamestatus\", \"winnerid\") values(?,?,0); ");
             stmt.setInt(1, requestId);
             stmt.setInt(2, 0);
             // stmt.setInt(3, 0);
@@ -313,7 +314,9 @@ public class DbHandler {
 
         try {
 
-            PreparedStatement stmt = connection.prepareStatement("SELECT \"RequestID\" FROM \"Request\" WHERE \"Player1\"= ? AND \"Player2\"= ? ");
+            PreparedStatement stmt = connection.prepareStatement("SELECT \"Request\".\"RequestID\" FROM \"Request\"" +
+                    " INNER JOIN \"Game\" ON \"Game\".\"RequestID\"= \"Request\".\"RequestID\" WHERE \"Player1\"= ? AND" +
+                    " \"Player2\"= ? AND \"Gamestatus\" = 0 ");
             stmt.setInt(1, player1);
             stmt.setInt(2, player2);
             int rid = getSingelInt(stmt, "RequestID");
@@ -323,6 +326,28 @@ public class DbHandler {
             e.printStackTrace();
             return -1;
         }
+
+
+    }
+
+    public int findReqIdUnAccepted(int player1, int player2){
+
+            try {
+
+                PreparedStatement stmt = connection.prepareStatement("SELECT \"Request\".\"RequestID\" FROM \"Request\"" +
+                        " WHERE \"Player1\"= ? AND" +
+                        " \"Player2\"= ? AND \"Acceptance\" = 0 ");
+                stmt.setInt(1, player1);
+                stmt.setInt(2, player2);
+                int rid = getSingelInt(stmt, "RequestID");
+                return rid;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return -1;
+            }
+
+
 
 
     }
@@ -606,6 +631,65 @@ public class DbHandler {
         stmt2.close();
 
     }
+
+    public int findNumberOfGames(int playerId) throws SQLException {
+
+        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) AS games FROM \"Game\" INNER JOIN \"Request\" ON " +
+                "\"Game\".\"RequestID\"=\"Request\".\"RequestID\" WHERE \"Player1\"= ? AND \"Gamestatus\"= ? ");
+        stmt.setInt(1,playerId);
+        stmt.setInt(2,1);
+        int nrOfGames1 = getSingelInt(stmt,"games");
+
+        PreparedStatement stmt2 = connection.prepareStatement("SELECT COUNT(*) AS games FROM \"Game\" INNER JOIN \"Request\" ON " +
+                "\"Game\".\"RequestID\"=\"Request\".\"RequestID\" WHERE \"Player2\"= ? AND \"Gamestatus\"= ? ");
+        stmt2.setInt(1,playerId);
+        stmt2.setInt(2,1);
+        int nrOfGames2 = getSingelInt(stmt2,"games");
+
+        return nrOfGames1+nrOfGames2;
+
+    }
+
+    public int findNumberOfWins(int playerId) throws SQLException {
+
+        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) AS wins FROM \"Game\" INNER JOIN \"Request\" ON " +
+                "\"Game\".\"RequestID\"=\"Request\".\"RequestID\" WHERE \"Player1\"= ? AND \"Gamestatus\"= ? AND \"winnerid\"= ? ");
+        stmt.setInt(1,playerId);
+        stmt.setInt(2,1);
+        stmt.setInt(3,playerId);
+        int nrOfWins1 = getSingelInt(stmt,"wins");
+
+        PreparedStatement stmt2 = connection.prepareStatement("SELECT COUNT(*) AS wins FROM \"Game\" INNER JOIN \"Request\" ON " +
+                "\"Game\".\"RequestID\"=\"Request\".\"RequestID\" WHERE \"Player2\"= ? AND \"Gamestatus\"= ? AND \"winnerid\"= ?");
+        stmt2.setInt(1,playerId);
+        stmt2.setInt(2,1);
+        stmt2.setInt(3,playerId);
+        int nrOfWins2 = getSingelInt(stmt2,"wins");
+
+        return nrOfWins1+nrOfWins2;
+
+    }
+
+    public int findNumberOfLoss(int playerId) throws SQLException {
+
+        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) AS loss FROM \"Game\" INNER JOIN \"Request\" ON " +
+                "\"Game\".\"RequestID\"=\"Request\".\"RequestID\" WHERE \"Player1\"= ? AND \"Gamestatus\"= ? AND \"winnerid\"<> ? AND \"winnerid\">0;");
+        stmt.setInt(1,playerId);
+        stmt.setInt(2,1);
+        stmt.setInt(3,playerId);
+        int nrOfLoss1 = getSingelInt(stmt,"loss");
+
+        PreparedStatement stmt2 = connection.prepareStatement("SELECT COUNT(*) AS loss FROM \"Game\" INNER JOIN \"Request\" ON " +
+                "\"Game\".\"RequestID\"=\"Request\".\"RequestID\" WHERE \"Player2\"= ? AND \"Gamestatus\"= ? AND \"winnerid\"<> ? AND \"winnerid\">0;");
+        stmt2.setInt(1,playerId);
+        stmt2.setInt(2,1);
+        stmt2.setInt(3,playerId);
+        int nrOfLoss2 = getSingelInt(stmt2,"loss");
+
+        return nrOfLoss1+nrOfLoss2;
+
+    }
+
 
 
 }
