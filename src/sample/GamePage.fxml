@@ -2,22 +2,42 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GamePageController">
    <children>
-      <Button fx:id="rockButton" layoutX="149.0" layoutY="324.0" mnemonicParsing="false" onAction="#rockButton" text="Rock" />
-      <Button fx:id="scissorsButton" layoutX="272.0" layoutY="324.0" mnemonicParsing="false" onAction="#siscorButton" text="Scissors" />
-      <Button fx:id="paperButton" layoutX="396.0" layoutY="324.0" mnemonicParsing="false" onAction="#paperButton" text="Paper" />
-      <Label fx:id="playerOne" layoutX="162.0" layoutY="53.0" text="name 1" />
-      <Label fx:id="playerTwo" layoutX="409.0" layoutY="53.0" text="name 2" />
-      <Label fx:id="roundsLabel" layoutX="245.0" layoutY="22.0" text="rounds (om vi vill ha)" />
-      <Label fx:id="p1Points" layoutX="162.0" layoutY="286.0" text="wins/ points" />
-      <Label fx:id="p2Points" layoutX="409.0" layoutY="286.0" text="wins/ points" />
+      <Button fx:id="rockButton" layoutX="149.0" layoutY="324.0" mnemonicParsing="false" onAction="#rockButton" style="-fx-border-color: #00cc99;" text="Rock">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Button fx:id="scissorsButton" layoutX="272.0" layoutY="324.0" mnemonicParsing="false" onAction="#siscorButton" style="-fx-border-color: #cccc00;" text="Scissors">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Button fx:id="paperButton" layoutX="396.0" layoutY="324.0" mnemonicParsing="false" onAction="#paperButton" style="-fx-border-color: #ff3333;" text="Paper">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Label fx:id="playerOne" layoutX="162.0" layoutY="53.0" text="name 1">
+         <font>
+            <Font name="System Bold" size="12.800000190734863" />
+         </font></Label>
+      <Label fx:id="playerTwo" layoutX="409.0" layoutY="53.0" text="name 2">
+         <font>
+            <Font name="System Bold" size="12.800000190734863" />
+         </font></Label>
+      <Label fx:id="roundsLabel" layoutX="245.0" layoutY="22.0" text="rounds (om vi vill ha)">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
       <Separator layoutX="300.0" layoutY="53.0" orientation="VERTICAL" prefHeight="255.0" prefWidth="5.0" />
       <Separator layoutX="59.0" layoutY="307.0" prefHeight="0.0" prefWidth="494.0" />
       <Separator layoutX="62.0" layoutY="71.0" prefHeight="3.0" prefWidth="494.0" />
-      <Button fx:id="backButton" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" onAction="#backButton" text="Back" />
-      <ListView fx:id="resultListp1" layoutX="104.0" layoutY="95.0" prefHeight="171.0" prefWidth="157.0" />
-      <ListView fx:id="resultListp2" layoutX="351.0" layoutY="95.0" prefHeight="171.0" prefWidth="157.0" />
+      <Button fx:id="backButton" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" onAction="#backButton" style="-fx-border-color: red;" text="Back">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <ListView fx:id="resultListp1" layoutX="104.0" layoutY="95.0" prefHeight="171.0" prefWidth="157.0" style="-fx-border-color: #0000b3;" />
+      <ListView fx:id="resultListp2" layoutX="351.0" layoutY="95.0" prefHeight="171.0" prefWidth="157.0" style="-fx-border-color: #cc0000;" />
    </children>
 </AnchorPane>
