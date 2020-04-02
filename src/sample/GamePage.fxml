@@ -37,7 +37,9 @@
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Button>
-      <ListView fx:id="resultListp1" layoutX="104.0" layoutY="95.0" prefHeight="171.0" prefWidth="157.0" style="-fx-border-color: #0000b3;" />
-      <ListView fx:id="resultListp2" layoutX="351.0" layoutY="95.0" prefHeight="171.0" prefWidth="157.0" style="-fx-border-color: #cc0000;" />
+      <ListView fx:id="resultListp1" layoutX="187.0" layoutY="95.0" prefHeight="171.0" prefWidth="74.0" style="-fx-border-color: #0000b3;" />
+      <ListView fx:id="resultListp2" layoutX="351.0" layoutY="95.0" prefHeight="171.0" prefWidth="74.0" style="-fx-border-color: #cc0000;" />
+      <Label fx:id="player1Choice" layoutX="119.0" layoutY="171.0" />
+      <Label fx:id="player2Choice" layoutX="456.0" layoutY="171.0" />
    </children>
 </AnchorPane>
