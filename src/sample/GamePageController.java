@@ -34,24 +34,28 @@ public class GamePageController {
     int p1Wins;
     int p2Wins;
     int opponentId;
+    String[] choices = {"rock","scissors","paper"};
 
     @FXML
     Button backButton, rockButton, scissorsButton, paperButton;
     @FXML
-    Label playerOne, playerTwo, roundsLabel, player1Choice, player2Choice;
+    Label playerOne, playerTwo, roundsLabel, player1Choice, player2Choice, choiceLabelP1, choiceP1, choiceLabelP2, choiceP2 ;
     @FXML
     ListView resultListp1, resultListp2;
+
+
 
     public GamePageController() {
         dbh = new DbHandler();
         p1Wins = 0;
         p2Wins = 0;
+
     }
 
     public void setGameId(int gamesId) throws SQLException {
         gameId = gamesId;
 
-        setUpRounds();
+
 
     }
 
@@ -59,7 +63,13 @@ public class GamePageController {
         playerId = player;
         opponentId = opponent;
 
+
+        choiceLabelP1.setVisible(false);
+        choiceLabelP2.setVisible(false);
+        choiceP1.setVisible(false);
+        choiceP2.setVisible(false);
         setUpNames();
+        setUpRounds();
 
 
     }
@@ -73,6 +83,10 @@ public class GamePageController {
             for (int i = 0; i < results.length; i++) {
                 updateResultLists(results[i]);
             }
+        }
+        int currentChoice = dbh.findUnAnsweredChoice(gameId,playerNumber,currentRound);
+        if (currentChoice>0){
+            updateChoiceLabel(currentChoice);
         }
 
 
@@ -123,6 +137,7 @@ public class GamePageController {
             int result = dbh.playerChoice(gameId, currentRound, playerNumber, choice);
             if (result == -1) {
                 display("Choice made! waiting for oppenents choice");
+                updateChoiceLabel(choice);
             } else {
                 if (result == playerNumber) {
                     display("You won the round!");
@@ -158,6 +173,19 @@ public class GamePageController {
                 }
 
             }
+        }
+    }
+
+    public void updateChoiceLabel(int choice){
+
+        if(playerNumber==1){
+            choiceLabelP1.setVisible(true);
+            choiceP1.setText(choices[choice-1]);
+            choiceP1.setVisible(true);
+        }else{
+            choiceLabelP2.setVisible(true);
+            choiceP2.setText(choices[choice-1]);
+            choiceP2.setVisible(true);
         }
     }
 

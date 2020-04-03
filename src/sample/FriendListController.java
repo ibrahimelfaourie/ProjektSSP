@@ -55,7 +55,7 @@ public class FriendListController {
     // En person som loggat in så vi hämtar den personens vänner och lägger in namnen i friendlist listan
     // för att kunna lägga in i listviewn använder vi oss av observablelist
     public void setFriends(String[] friends){
-
+        //http://www.java2s.com/Tutorials/Java/JavaFX/0640__JavaFX_ListView.htm
         ObservableList<String> list = FXCollections.observableArrayList(friends);
         friendList.setItems(list);
         friendList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -77,16 +77,21 @@ public class FriendListController {
 
             if (requests== 0){
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("roundsPage.fxml"));
-                Parent roundsParent = loader.load();
-                Scene roundsScene = new Scene(roundsParent);
+                int activeGames = dbh.findActiveGames(userId,opponentId);
+                if (activeGames==0) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("roundsPage.fxml"));
+                    Parent roundsParent = loader.load();
+                    Scene roundsScene = new Scene(roundsParent);
 
-                RoundsController flc = loader.getController();
-                flc.setPlayers(userId, opponentId);
+                    RoundsController flc = loader.getController();
+                    flc.setPlayers(userId, opponentId);
 
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(roundsScene);
-                window.show();
+                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    window.setScene(roundsScene);
+                    window.show();
+                }else {
+                    popupMessage("You already in game with this friend");
+                }
 
             }else{
 
@@ -134,7 +139,7 @@ public class FriendListController {
 
     // namn läggs in i requestlsitan
     public void setRequests(String[] requestsFromPlayer){
-
+        //http://www.java2s.com/Tutorials/Java/JavaFX/0640__JavaFX_ListView.htm
         ObservableList<String> list = FXCollections.observableArrayList(requestsFromPlayer);
         requests.setItems(list);
         requests.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);

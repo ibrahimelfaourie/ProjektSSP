@@ -108,10 +108,10 @@ public class DbHandler {
     private int getSingelInt(PreparedStatement stmt, String column) {
 
         try {
-            ResultSet validUser = stmt.executeQuery();
+            ResultSet resultInt = stmt.executeQuery();
 
-            if (validUser.next()) {
-                int result = validUser.getInt(column);
+            if (resultInt.next()) {
+                int result = resultInt.getInt(column);
 
                 return result;
             } else return -1;
@@ -126,10 +126,10 @@ public class DbHandler {
     private String getSingelString(PreparedStatement stmt, String column) {
 
         try {
-            ResultSet validUser = stmt.executeQuery();
+            ResultSet resultString = stmt.executeQuery();
 
-            if (validUser.next()) {
-                String result = validUser.getString(column);
+            if (resultString.next()) {
+                String result = resultString.getString(column);
 
                 return result;
             } else return null;
@@ -148,13 +148,13 @@ public class DbHandler {
                             "where \"Owner\" = ? ;");
 
             stmt.setInt(1, userId);
-            ResultSet validUser = stmt.executeQuery();
+            ResultSet validResult = stmt.executeQuery();
             ArrayList<String> namelist = new ArrayList<String>();
             // Vi får ett ett antal namn, vi vet inte i förväg hur många
             // Vi stoppar in i arraylist först sen skapar vi en array utifrån storleken.
 
-            while ((validUser.next())) {
-                String name = validUser.getString("Name");
+            while ((validResult.next())) {
+                String name = validResult.getString("Name");
                 namelist.add(name);
                 // så länge de finns fler resultat att hämta så läggs den i namelist
 
@@ -278,14 +278,7 @@ public class DbHandler {
     }
 
 
-    // hjälpmetod: när vi bara vill updatera ett värde utan returna något
-    private void sendUpdate(PreparedStatement stmt) {
-        try {
-            int result = stmt.executeUpdate();
-        } catch (Exception e) {
 
-        }
-    }
 
     // registrerar ett nytt spel i databasen.
     // utgår från vilken request
@@ -394,6 +387,7 @@ public class DbHandler {
     // vi vill hitta bägge kombinationerna
     public String[] findGamesForPlayer(int userId) {
 
+        //https://howtodoinjava.com/java/collections/arraylist/merge-arraylists/
         try {
             PreparedStatement stmt = connection.prepareStatement("SELECT \"Player1\" FROM \"Request\" INNER JOIN \"Game\" ON " +
                     "\"Game\".\"RequestID\"= \"Request\".\"RequestID\" WHERE \"Player2\"= ? AND \"Gamestatus\"= 0;");
@@ -687,6 +681,62 @@ public class DbHandler {
         int nrOfLoss2 = getSingelInt(stmt2,"loss");
 
         return nrOfLoss1+nrOfLoss2;
+
+    }
+
+    public int findActiveGames(int player1, int player2) throws SQLException {
+
+        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) AS games FROM \"Game\" INNER JOIN \"Request\" ON " +
+                "\"Game\".\"RequestID\"=\"Request\".\"RequestID\" WHERE \"Player1\"= ? AND \"Gamestatus\"= ? AND \"Player2\"= ?;");
+        stmt.setInt(1,player1);
+        stmt.setInt(2,0);
+        stmt.setInt(3,player2);
+        int actGames1 = getSingelInt(stmt,"games");
+
+        PreparedStatement stmt2 = connection.prepareStatement("SELECT COUNT(*) AS games FROM \"Game\" INNER JOIN \"Request\" ON " +
+                "\"Game\".\"RequestID\"=\"Request\".\"RequestID\" WHERE \"Player2\"= ? AND \"Gamestatus\"= ? AND \"Player1\"= ?;");
+        stmt2.setInt(1,player1);
+        stmt2.setInt(2,0);
+        stmt2.setInt(3,player2);
+        int actGames2 = getSingelInt(stmt2,"games");
+
+        return actGames1+actGames2;
+
+    }
+
+    public int findUnAnsweredChoice(int gameId, int playerNumber, int round) throws SQLException {
+
+        String playerColumn ;
+        if (playerNumber == 1){
+            playerColumn = "p1choice";
+
+        }else {
+            playerColumn = "p2choice";
+        }
+        PreparedStatement stmt = connection.prepareStatement("SELECT " + playerColumn + " FROM \"MatchLog\" WHERE \"round\"= ? AND \"GameID\"= ?");
+        stmt.setInt(1,round);
+        stmt.setInt(2,gameId);
+
+        int choice1 = getSingelInt(stmt,playerColumn);
+
+        if (playerNumber == 1){
+            playerColumn = "p2choice";
+
+        }else {
+            playerColumn = "p1choice";
+        }
+        PreparedStatement stmt2 = connection.prepareStatement("SELECT " + playerColumn + " FROM \"MatchLog\" WHERE \"round\"= ? AND \"GameID\"= ?");
+        stmt2.setInt(1,round);
+        stmt2.setInt(2,gameId);
+
+        int choice2 = getSingelInt(stmt2,playerColumn);
+
+        if (choice2 == 0){
+            return choice1;
+        }else {
+            return 0;
+        }
+
 
     }
 
